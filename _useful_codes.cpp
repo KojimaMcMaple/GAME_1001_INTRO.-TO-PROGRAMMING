@@ -1,22 +1,23 @@
-	bool valid = false; // Need to reset valid every turn.
-	do
-	{
-		// The ?: below is the conditional operator. It's a mini if/else.
-		cout << (currentPlayer == 0 ? player1 : player2) << ", enter your guess [1-100]: ";
-		cin >> guess; // cin is dangerous. We're not accounting for fail.
-		cin.ignore(INT_MAX, '\n'); // Clear/flush out anything left in buffer.
-								   // If we ARE in a fail state, this line will get ignored.
-		if (cin.fail()) // Uh oh, our bad input created a stream fail.
-		{
-			cin.clear(); // Clear the error state.
-			cin.ignore(INT_MAX, '\n'); // Clear/flush out anything left in buffer.
-			cout << "Invalid input, try again." << endl;
+	bool is_valid_input = false;
+
+	do {
+		cout << "Q: How many students were surveyed ?" << endl;
+		cout << "A: ";
+		cin >> num_surv_students;
+
+		cin.ignore(INT_MAX, '\n');
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			cout << "ERROR: Invalid input. Please try again." << endl;
 		}
-		else if (guess < 1 || guess > 100) // Out of bounds.
-			cout << "I said 1-100! Try again." << endl;
-		else
-			valid = true;
-	} while (!valid); // Some input validation.
+		else if (num_surv_students < 0) {
+			cout << "ERROR: Number of students cannot be less than 0. Please enter a number > 0. " << endl;
+		}
+		else {
+			is_valid_input = true;
+		}
+	} while (!is_valid_input);
 	
 	
 	if (!bullet_vec.empty()) {
